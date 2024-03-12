@@ -1,0 +1,199 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef int64_t ll;
+struct node
+{
+    int data;
+    node *link;
+};
+
+void display(node *head)
+{
+    node *temp1 = new node();
+    temp1 = head;
+
+    while(temp1!=NULL)
+    {
+        cout<<temp1->data<<" ";
+        temp1=temp1->link;
+    }
+
+    cout<<endl;
+}
+
+void insert_beginning(node **head)
+{
+    int x;
+    cin >> x;
+
+    node *temp2 = new node();
+
+    temp2->data = x;
+    temp2->link = *head;
+
+    node *temp3 = new node();
+
+    temp3 = temp2;
+    *head=temp2;
+
+    while (temp3 != NULL)
+    {
+        //cout << temp3->data << " ";
+        temp3 = temp3->link;
+    }
+
+    //cout << endl;
+}
+
+
+void insert_end(node **head)
+{
+    int x;
+    cin >> x;
+
+    node *temp1 = new node();
+    temp1->data = x;
+    temp1->link = NULL;
+
+    if (*head == NULL)
+    {
+        // If the list is empty, make the new node the head
+        *head = temp1;
+        return;
+    }
+
+    node *temp2 = *head;
+
+    while (temp2->link != NULL)
+    {
+        cout << temp2->data << " ";
+        temp2 = temp2->link;
+    }
+
+    // Print the last node's data
+    cout << temp2->data << endl;
+
+    temp2->link = temp1;
+}
+void delete_node(node **head)
+{
+    int x;
+    cin>>x;
+
+    node *pre=new node();
+    node *top=new node();
+
+    top=*head;
+    pre=NULL;
+
+    while((top)!=NULL)
+    {
+
+        if((top)->data==x)
+        {
+            break;
+        }
+
+        pre=top;
+        top=top->link;
+    }
+
+    cout<<pre->data<<"  "<<(*head)->data<<"  "<<top->data<<endl;
+
+    if(top->data==x)
+    {
+        if(pre!=NULL)
+        {
+            if(top->link!=NULL)
+            {
+                pre->link=top->link;
+            }
+        }
+
+    }
+}
+void reverse_linked_list_recursion(node **head)
+{
+    if((*head)->link!=NULL)
+    {
+        node *temp=new node;
+        temp=*head;
+        reverse_linked_list_recursion((*head)->link);
+    }
+
+    temp
+
+
+
+}
+void reverse_linked_list(node **head)
+{
+    node *pre = new node();
+    pre->link=NULL;
+
+    node *mid = new node();
+    mid->link=NULL;
+
+    node *top = *head;
+
+    while (top != NULL)
+    {
+        mid = top->link;
+        //cout<<" mid data  "<<mid->data<<endl;
+        top->link = pre;
+
+        pre = top;
+        //cout<<pre->data<<" pre mid  "<<top->data<<endl;
+
+        top = mid;
+        //cout<<pre->data<<" pre mid top "<<top->data<<" "<<mid->data<<endl;
+    }
+
+    *head = pre;
+}
+
+int main()
+{
+    int n,x;
+    node *head = new node();
+
+    node *temp = new node();
+
+    for(int i=1; i<=5; i++)
+    {
+        cin>>n;
+
+        node *temp1 = new node();
+
+        temp1->data=n;
+        temp1->link=NULL;
+
+        if(i==1)
+        {
+            head=temp1;
+            temp=temp1;
+        }
+        else
+        {
+            temp->link=temp1;
+            temp=temp->link;
+        }
+    }
+
+    display(head);
+
+    insert_beginning(&head);
+    display(head);
+
+    insert_end(&head);
+    display(head);
+
+
+    delete_node(&head);
+    display(head);
+
+    reverse_linked_list(&head);
+    display(head);
+
+}
+
